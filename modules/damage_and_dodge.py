@@ -44,14 +44,15 @@ def table_damge_dodge( damage_init, dodge_init, probability_dice ):
         elif damage_init < dodge[i]:    
             # print( str(damage_init) + " < " + str(dodge[i]) + " damage false" )
             damage_false.append(sum_faces[i])
-            damage_false_p   =   damage_false_p   +   probability[i]
+            # damage_false_p   =   damage_false_p   +   probability[i]
 
         ##-----Damage=dodge------##
         elif damage_init == dodge[i]:   
             # print( str(damage_init) + " = " + str(dodge[i]) + " relaunch" )
             relaunch    =   sum_faces[i]
             relaunch_p  =   probability[i]
-
+    
+    damage_false_p  =   1   - damage_true_p     -   relaunch_p
 
     ###---------------contruction_table_result---------------###
     table_date      =   np.array([
