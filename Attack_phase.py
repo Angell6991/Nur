@@ -156,7 +156,7 @@ def graph_attack_and_dodge( attack_init, dodge_init ):
     ###--------------------show_graph--------------------------###
     # return  plt.savefig("grafica.pdf") 
     # return  plt.show()
-    return  plt.savefig("grafica.png", dpi=300, bbox_inches="tight")
+    return  plt.savefig("graph_attack.png", dpi=300, bbox_inches="tight")
 
 
 ###------------------Texting_program-----------------------###
