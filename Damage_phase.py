@@ -94,7 +94,7 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
 ##############################################################
 print("Calculo de duracion de turnos en base á los puntos de daño y vida")
 dice            =   int(input("Cantidad de dados a lanzar 1-12: "))
-damage_init     =   int(input("Ataque: "))
+damage_init     =   int(input("Daño: "))
 life_init       =   int(input("Vida: "))
 graph_damage_and_life(damage_init, life_init, dice)
 
