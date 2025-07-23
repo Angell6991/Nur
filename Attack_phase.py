@@ -156,28 +156,19 @@ def graph_attack_and_dodge( attack_init, dodge_init ):
     ###--------------------show_graph--------------------------###
     # return  plt.savefig("grafica.pdf") 
     # return  plt.show()
-    return  plt.savefig("grafica.png")
+    return  plt.savefig("grafica.png", dpi=300, bbox_inches="tight")
 
 
 ###------------------Texting_program-----------------------###
 # graph_attack_and_dodge(4,-1);
-graph_attack_and_dodge(4,-1);
 
 
-
-
-
-
-
-
-
-
-
-###############################################################
-###-------------write_in_document_markdown------------------###
-###############################################################
-# with    open(f"Tabla_attack[{attack_init}]_dodge[{dodge_init}].md", "w")   as  f:
-#     f.write("Daño: " + str(damage_init) + "\n" + "\n" + "Esquivar: " + str(dodge_init) + "\n" + "\n")
-#     f.write(table_result.to_markdown(index=False))
+##############################################################
+###-------------------Using_program------------------------###
+##############################################################
+print("Calculo de probabilidad de exito del ataque en base á los puntos de ataque y esquivar")
+atttack_init    =   int(input("Ataque: "))
+dodge_init      =   int(input("Esquivar: "))
+graph_attack_and_dodge(atttack_init,dodge_init)
 
 
