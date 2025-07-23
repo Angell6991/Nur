@@ -39,12 +39,12 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
     ##############################################################
 
     ###--------------color_and_degraded_list-------------------###
-    list_color  =   [list_shift[i] for i in range(length_dat)] 
+    list_color  =   [list_shift[i]  for i in range(length_dat)] 
     colormap    =   pcolor.LinearSegmentedColormap.from_list("custom_cmap", ["#1D1D1D", "#ffa500"])  
     ###------Degradado_hacia_"#1D1D1D"_hacia_"#00CCDE"---------###
     
     ###-----------building_the_inside_graphic_part-------------###
-    plt.figure(facecolor="#1D1D1D", figsize=(9, 6))
+    plt.figure(facecolor="#1D1D1D", figsize=(7, 4))
     plt.title(f"Damage: {damage_init} vs Life: {life_init}", color="#5AEDA3", fontsize="14")
     plt.gca().set_facecolor("#353535")
     plt.grid(True, linestyle="dashed", color="#696969", alpha=0.5, zorder=1)
@@ -69,7 +69,7 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
         plt.text(
                 faces_damage[i], 
                 prob_damage_100[i], 
-                f"{round(list_shift[i], 4)}", 
+                f"{round(list_shift[i], 1)}", 
                 fontsize=7, va='bottom',  ha='center', 
                 color="#ffffff"
         )
