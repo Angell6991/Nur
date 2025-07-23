@@ -5,5 +5,5 @@ which is currently under development.
 
 Install dependencies:
 ```sh
-pip install pandas numpy tabulate
+pip install pandas numpy tabulate matplotlib
 ```

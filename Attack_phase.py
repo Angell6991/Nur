@@ -28,6 +28,7 @@ def graph_attack_and_dodge( attack_init, dodge_init ):
     ###-------------------graph_axis_y-------------------------###
     probability_attack  =   [table_attack.iloc[i,1] for i in range(length_dat)]
     probability_attack  =   np.array(probability_attack)
+    prob_attack_100     =   [ round(probability_attack[i]*100,4) for i in range(length_dat) ]
 
     ###--------list_attack_true_false_and_relaunch-------------###
     list_attack_true        =   []
@@ -55,55 +56,112 @@ def graph_attack_and_dodge( attack_init, dodge_init ):
     ##############################################################
 
     ###--------------color_and_degraded_list-------------------###
-    list_color  =   [round(list_attack_true[i]*100, 4) for i in range(length_dat)] 
-    colormap    =   pcolor.LinearSegmentedColormap.from_list("custom_cmap", ["#1D1D1D", "#00CCDE"])  
+    list_color_true     =   [round(list_attack_true[i]*100, 4) for i in range(length_dat)] 
+    colormap_true       =   pcolor.LinearSegmentedColormap.from_list("custom_cmap", ["#1D1D1D", "#00CCDE"])  
+    
+    list_color_false    =   [round(list_attack_false[i]*100, 4) for i in range(length_dat)] 
+    colormap_false      =   pcolor.LinearSegmentedColormap.from_list("custom_cmap", ["#1D1D1D", "#E53681"])
+    
+    list_color_relaunch =   [round(list_attack_relaunch[i]*100, 4) for i in range(length_dat)] 
+    colormap_relaunch   =   pcolor.LinearSegmentedColormap.from_list("custom_cmap", ["#1D1D1D", "#9370db"])
     ###------Degradado_hacia_"#1D1D1D"_hacia_"#00CCDE"---------###
 
     ###-----------building_the_inside_graphic_part-------------###
-    plt.figure(facecolor="#1D1D1D")
-    plt.title(f"Attack: {attack_init} vs Dodge: {dodge_init}", color="#5AEDA3", fontsize="14")
-    plt.gca().set_facecolor("#353535")
-    plt.grid(True, linestyle="dashed", color="#696969", alpha=0.5, zorder=1)
-    scatter     =   plt.scatter(
-                        faces_attack, 
-                        probability_attack,
-                        c=list_color, 
-                        cmap=colormap, 
-                        s=50, 
-                        zorder=2
-                    )
+    fig, axs    =   plt.subplots(3, 1, figsize=(10, 15), facecolor="#1D1D1D")
+
+    scatter_0   =   axs[0].scatter(
+            faces_attack, prob_attack_100, 
+            zorder=2,
+            c=list_color_true, 
+            cmap=colormap_true, 
+            s=50
+            )
+    scatter_1   =   axs[1].scatter(
+            faces_attack, prob_attack_100, 
+            zorder=2,
+            c=list_color_false, 
+            cmap=colormap_false, 
+            s=50
+            )
+    scatter_2   =   axs[2].scatter(
+            faces_attack, prob_attack_100, 
+            zorder=2,
+            c=list_color_relaunch, 
+            cmap=colormap_relaunch, 
+            s=50
+            )
 
     ###-------------parameters_for_axis_x_and_y----------------###
-    plt.xlabel("Possibilities in the dice", color="#5AEDA3", fontsize= "13")
-    plt.xticks(faces_attack,color="#5AEDA3")
-
-    plt.ylabel("Attack probability (%)", color="#5AEDA3", fontsize="13")
-    plt.yticks(probability_attack, [ str(round(probability_attack[i]*100,4)) for i in range(length_dat) ], color="#5AEDA3")
+    for i in range(3):
+        axs[i].grid(True, linestyle="dashed", color="#696969", alpha=0.5, zorder=1)
+        axs[i].set_facecolor("#353535")
+        axs[i].grid(True, linestyle="dashed", color="#ffffff", alpha=0.5)
+        axs[i].set_xlabel("Possibilities in the dice", color="#5AEDA3")
+        axs[i].set_ylabel("Attack probability (%)", color="#5AEDA3")
+        axs[i].xaxis.label.set_color("#5AEDA3")
+        axs[i].yaxis.label.set_color("#5AEDA3")
+        axs[i].tick_params(axis="x", colors='#5AEDA3')
+        axs[i].tick_params(axis="y", colors='#5AEDA3')
+        axs[i].xaxis.label.set_size(13)
+        axs[i].yaxis.label.set_size(13)  
+        axs[i].set_xticks(faces_attack)
+        axs[i].set_yticks([ round(probability_attack[i]*100,4) for i in range(length_dat) ])
+        axs[i].set_title(f"Attack: {attack_init} vs Dodge: {dodge_init}", color="#5AEDA3", fontsize="14")
+    
+    plt.tight_layout() 
 
     ###---------------add_text_point_in_plt--------------------###
     for i in range(length_dat):
-        plt.text(
+        axs[0].text(
                 faces_attack[i], 
-                probability_attack[i], 
-                f'{list_color[i]}%', 
+                prob_attack_100[i], 
+                f'{list_color_true[i]}%', 
+                fontsize=7, va='bottom',  ha='center', 
+                color="#ffffff"
+        )
+
+    for i in range(length_dat):
+        axs[1].text(
+                faces_attack[i], 
+                prob_attack_100[i], 
+                f'{list_color_false[i]}%', 
+                fontsize=7, va='bottom',  ha='center', 
+                color="#ffffff"
+        )
+
+    for i in range(length_dat):
+        axs[2].text(
+                faces_attack[i], 
+                prob_attack_100[i], 
+                f'{list_color_relaunch[i]}%', 
                 fontsize=7, va='bottom',  ha='center', 
                 color="#ffffff"
         )
 
     ###----------------------sidebar---------------------------###
-    cbar = plt.colorbar(scatter)
-    cbar.set_label("Attack true P(%)", color="#5AEDA3", fontsize= "13")
-    cbar.ax.tick_params(labelcolor="#5AEDA3")
+    cbar0 = plt.colorbar(scatter_0)  # Para el primer scatter
+    cbar1 = plt.colorbar(scatter_1)  # Para el segundo scatter
+    cbar2 = plt.colorbar(scatter_2)  # Para el tercer scatter
+
+    # Configurar etiquetas y colores
+    cbar0.set_label("Attack true P(%)", color="#5AEDA3", fontsize=13)
+    cbar1.set_label("Attack false P(%)", color="#5AEDA3", fontsize=13)
+    cbar2.set_label("Attack relauch P(%)", color="#5AEDA3", fontsize=13)
+
+    # Establecer el color de los ticks
+    cbar0.ax.tick_params(labelcolor="#5AEDA3")  # Para la barra de color 0
+    cbar1.ax.tick_params(labelcolor="#5AEDA3")  # Para la barra de color 1
+    cbar2.ax.tick_params(labelcolor="#5AEDA3")  # Para la barra de color 2
 
     ###--------------------show_graph--------------------------###
-    # plt.savefig("grafica.pdf") 
-    # plt.savefig("grafica.png")
-    return  plt.show()
+    # return  plt.savefig("grafica.pdf") 
+    # return  plt.show()
+    return  plt.savefig("grafica.png")
 
 
 ###------------------Texting_program-----------------------###
 # graph_attack_and_dodge(4,-1);
-graph_attack_and_dodge(4,4);
+graph_attack_and_dodge(4,-1);
 
 
 
