@@ -99,11 +99,3 @@ life_init       =   int(input("Vida: "))
 graph_damage_and_life(damage_init, life_init, dice)
 
 
-###############################################################
-###-------------write_in_document_markdown------------------###
-###############################################################
-# with    open(f"Tabla_attack[{attack_init}]_dodge[{dodge_init}].md", "w")   as  f:
-#     f.write("Daño: " + str(damage_init) + "\n" + "\n" + "Esquivar: " + str(dodge_init) + "\n" + "\n")
-#     f.write(table_result.to_markdown(index=False))
-
-
