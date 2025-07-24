@@ -69,7 +69,7 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
         plt.text(
                 faces_damage[i], 
                 prob_damage_100[i], 
-                f"{round(list_shift[i], 1)}", 
+                f"{int(list_shift[i])}", 
                 fontsize=7, va='bottom',  ha='center', 
                 color="#ffffff"
         )
@@ -93,7 +93,7 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
 ###-------------------Using_program------------------------###
 ##############################################################
 print("Calculo de duracion de turnos en base á los puntos de daño y vida")
-dice            =   int(input("Cantidad de dados a lanzar 1-12: "))
+dice            =   int(input("Cantidad de dados a lanzar 1-9: "))
 damage_init     =   int(input("Daño: "))
 life_init       =   int(input("Vida: "))
 graph_damage_and_life(damage_init, life_init, dice)
