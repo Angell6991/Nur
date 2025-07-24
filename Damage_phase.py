@@ -33,7 +33,7 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
     prob_damage_100     =   np.array([round(probability_damage[i]*100, 4) for i in range(length_dat)])
 
     ###--------------shift_probability_list--------------------###
-    list_shift          =   np.array([life_init/table_damage.iloc[i,2] for i in range(length_dat)])
+    list_shift          =   np.array([int(life_init/table_damage.iloc[i,2]) for i in range(length_dat)])
     ##############################################################
     ###---------------------plot_graph-------------------------###
     ##############################################################
@@ -69,7 +69,7 @@ def graph_damage_and_life( damage_init, life_init, number_dice ):
         plt.text(
                 faces_damage[i], 
                 prob_damage_100[i], 
-                f"{int(list_shift[i])}", 
+                f"{list_shift[i]}", 
                 fontsize=7, va='bottom',  ha='center', 
                 color="#ffffff"
         )
