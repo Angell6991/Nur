@@ -95,7 +95,6 @@ def graph_attack_and_dodge( attack_init, dodge_init ):
     for i in range(3):
         axs[i].grid(True, linestyle="dashed", color="#696969", alpha=0.5, zorder=1)
         axs[i].set_facecolor("#353535")
-        axs[i].grid(True, linestyle="dashed", color="#ffffff", alpha=0.5)
         axs[i].set_xlabel("Possibilities in the dice", color="#5AEDA3")
         axs[i].set_ylabel("Attack probability (%)", color="#5AEDA3")
         axs[i].xaxis.label.set_color("#5AEDA3")
